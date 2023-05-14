@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js File Uploader</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.5rem;
+            background-color: #333;
+            color: whitesmoke;
+        }
+
+        input,
+        button {
+            font: inherit;
+            width: max-content;
+        }
+
+        form {
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Node.js File Downloader</h1>
+        <form  method="post" id="downloadForm">
+            <label for="password">Enter your password:</label>
+            <input type="password" id="password" name="password">
+            <label for="filename">Enter your filename:</label>
+            <input type="text" id="filename" name="filename">
+            
+            <button>Submit</button>
+        </form>
+    <h2></h2>
+    <h3></h3>
+    <script>
+        const form = document.getElementById('downloadForm')
+
+        const sendFiles = async () => {
+            // Object 
+            const filename = document.getElementById('filename').value
+            const myPassword = document.getElementById('password').value
+            alert(myPassword)
+            alert(filename)
+
+            const formData = new FormData()
+
+            formData.append("filename",filename)
+            formData.append("password",myPassword)                                                                        
+
+            fetch('http://localhost:3500/download', {
+                method: 'POST',
+                body: formData
+            })
+                .then(res => res.blob())
+                .then(data => {
+                console.log(typeof(data))
+                var a = document.createElement("a");
+                a.href = window.URL.createObjectURL(data);
+                a.download = filename;
+                a.click();
+                });
+
+
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            sendFiles()
+        })
+        
+
+    </script>
+</body>
+
+</html>
