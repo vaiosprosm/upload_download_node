@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended:false}))
 
 // ------------------------------------ download ---------------------------------------------->
 
-app.get("/download/view", (req, res) => {
+app.get("/download", (req, res) => {
     res.sendFile(path.join(__dirname, "download_view.html"));
 });
 
@@ -28,15 +28,15 @@ app.post("/download", function (req, res) {
     console.log(req.body.password)
     //console.log(req.body.file)
     console.log("you click me")
-    
+    /*
     author = users.filter(user => user.password === req.body.password)
     console.log(author.length)
     if ( author.length === 0 ) {
         res.send({"message":"no auth"})
     }
     
-    //console.log( author[0].id )
-    res.download(__dirname + `/Projects/Project_1` + "photo.jpg", "photo.jpg");
+    //console.log( author[0].id )*/
+    res.download(__dirname + `/Projects/Project_1/` + "output.obj", "output.obj");
   });
 
 
